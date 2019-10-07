@@ -1,0 +1,54 @@
+@page
+@model WebApp.Pages_Cars.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+    <a asp-page="Create">Create New</a>
+
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Car[0].CarBrand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car[0].CarModel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car[0].ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Car[0].Owner)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Car) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarBrand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarModel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Owner)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.CarId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.CarId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.CarId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</body>

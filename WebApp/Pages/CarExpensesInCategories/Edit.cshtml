@@ -1,0 +1,55 @@
+@page
+@model WebApp.Pages_CarExpensesInCategories.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>CarExpensesInCategory</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CarExpensesInCategory.CarExpensesInCategoryId" />
+            <div class="form-group">
+                <label asp-for="CarExpensesInCategory.CarId" class="control-label"></label>
+                <select asp-for="CarExpensesInCategory.CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+                <span asp-validation-for="CarExpensesInCategory.CarId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarExpensesInCategory.ExpenseCategoryId" class="control-label"></label>
+                <select asp-for="CarExpensesInCategory.ExpenseCategoryId" class="form-control" asp-items="ViewBag.ExpenseCategoryId"></select>
+                <span asp-validation-for="CarExpensesInCategory.ExpenseCategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarExpensesInCategory.Expense" class="control-label"></label>
+                <input asp-for="CarExpensesInCategory.Expense" class="form-control" />
+                <span asp-validation-for="CarExpensesInCategory.Expense" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarExpensesInCategory.Comments" class="control-label"></label>
+                <input asp-for="CarExpensesInCategory.Comments" class="form-control" />
+                <span asp-validation-for="CarExpensesInCategory.Comments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarExpensesInCategory.DateTime" class="control-label"></label>
+                <input asp-for="CarExpensesInCategory.DateTime" class="form-control" />
+                <span asp-validation-for="CarExpensesInCategory.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

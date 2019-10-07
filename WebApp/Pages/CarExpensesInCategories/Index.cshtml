@@ -1,0 +1,98 @@
+@page
+@using Microsoft.EntityFrameworkCore.Internal
+@model WebApp.Pages_CarExpensesInCategories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@*<style type="text/css"></style>*@
+
+<form method="get" class="form-inline">
+    <div class="form-group">
+        Car:
+        <label class="control-label">
+            <input name="searchCar" class="form-control" value="@Model.SearchCar"/>
+        </label>
+        Expense category:
+        <label class="control-label">
+            <input name="searchCat" class="form-control" value="@Model.SearchCat"/>
+        </label>
+    </div>
+    <input type="submit" value="Search" class="btn btn-default"/>
+    <div>
+        <br/><a asp-page="/CarExpensesInCategories/Index">Back to cars expenses list</a>
+    </div>
+    @{
+        if (@Model.Message != "")
+        {
+            <error>"@Model.Message" was not found</error>
+        }
+    }
+</form>
+
+
+<a asp-page="Create">Create New</a>
+
+<body>
+<table class="table">
+    @foreach (var car in Model.Cars)
+    {
+        var allExpenses = 0;
+
+        if (Model.CarExpensesInCategory.Where(p => p.CarId == car.CarId).Any())
+        {
+            <th>
+                <h3>@Html.DisplayFor(modelItem => car.CarBrandModel), Owner: @car.Owner</h3>
+            </th>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarExpensesInCategory[0].ExpenseCategory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarExpensesInCategory[0].Expense)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarExpensesInCategory[0].Comments)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CarExpensesInCategory[0].DateTime)
+                </th>
+            </tr>
+        }
+        
+        
+
+        <tbody>
+
+        @foreach (var item in Model.CarExpensesInCategory.Where(p => p.CarId == car.CarId))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpenseCategory.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Expense)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.CarExpensesInCategoryId">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CarExpensesInCategoryId">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.CarExpensesInCategoryId">Delete</a>
+                </td>
+            </tr>
+
+            allExpenses += int.Parse(item.Expense);
+        }
+        @if (allExpenses != 0)
+        {
+            <td>All car expenses: @allExpenses €</td>
+        }
+        </tbody>
+    }
+</table>
+</body>

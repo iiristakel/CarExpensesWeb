@@ -1,0 +1,37 @@
+@page
+@model WebApp.Pages_ExpenseCategories.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<a asp-page="Create">Create New</a>
+
+<body>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpenseCategory[0].CategoryName)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.ExpenseCategory)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ExpenseCategoryId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ExpenseCategoryId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ExpenseCategoryId">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+</body>
